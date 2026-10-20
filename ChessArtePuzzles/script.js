@@ -1584,7 +1584,7 @@ const LICHESS_44_CATEGORIES = [
   { 
     id: 'xrayattack', 
     name: { en: '📻 X-Ray Attack', tr: '📻 Röntgen Saldırısı (X-Ray)', es: '📻 Ataque de rayos X', de: '📻 Röntgenangriff', ru: '📻 Рентгеновская атака', fr: '📻 Attaque aux rayons X', 'pt-br': '📻 Ataque de Raio-X', zh: '📻 X射线攻击', ja: '📻 X線攻撃', hi: '📻 एक्स-रे अटैक' }, 
-    desc: { en: 'Indirect pressure through an opponent piece onto a square or piece.', tr: 'Rakip taşın arkasındaki bir kareye veya taşa dolaylı yoldan baskı uygulama.', es: 'Presión indirecta a través de una pieza oponente.', de: 'Indirekter Druck durch eine gegnerische Figur hindurch.', ru: 'Косвенное давление через фигуру противника.', fr: 'Pression indirecte à travers une pièce ennemie sur une case ou une pièce.', 'pt-br': 'Pressão indireta através de uma peça oponente sobre uma casa ou peça.', zh: '通过对手棋子对某个格子或棋子进行间接施压。', ja: '相手の駒を介してマスや駒に間接的な圧力をかけます。', hi: 'विरोधी मोहरे के माध्यम से किसी वर्ग या मोहरे पर अप्रत्यक्ष दबाव।' } 
+    desc: { en: 'Indirect pressure through an opponent piece onto a square or piece.', tr: 'Rakip taşın arkasındaki bir kareye veya taşa dolaylı yoldan baskı uygulama.', es: 'Presión indirecta a través de una pieza oponente.', de: 'Indirekter Druck durch eine gegnerische Figur hindurch.', ru: 'Косвенное давление через фигуру противника.', fr: 'Pression indirecte à travers une pièce ennemie sur une case ou une pièce.', 'pt-br': 'Pressão indireta através de uma peça oponente sobre uma casa ou peça.', zh: '通过对手棋子对某个格子或棋子进行间接施压。', ja: '相手の駒を介してマスや駒に間接的な压力をかけます。', hi: 'विरोधी मोहरे के माध्यम से किसी वर्ग या मोहरे पर अप्रत्यक्ष दबाव।' } 
   },
   { 
     id: 'zugzwang', 
@@ -1683,7 +1683,7 @@ const LICHESS_44_CATEGORIES = [
   },
   { 
     id: 'bishopsmate', 
-    name: { en: '📐 Double Bishop Mate', tr: '📐 Çift Fil Matı (Bishop Mate)', es: '📐 Mate de dos alfiles', de: '📐 Läufer-Mate', ru: '📐 Мат двумя слонами', fr: '📐 Mat des deux fous', 'pt-br': '📐 Mate de Dois Bispos', zh: '📐 双象将死', ja: '📐 ダブルビショップメイト', hi: '📐 डबल बिशप मेट' }, 
+    name: { en: '📐 Double Bishop Mate', tr: '📐 Çift Fil Matı (Bishop Mate)', es: '📐 Mate de dos alfiles', de: '📐 Läufer-Mate', ru: '📐 Мат двумя слонами', fr: '📐 Mat des deux fous', 'pt-br': '📐 Mate de Dois Bispos', zh: '📐 双象将死', ja: '📐 ダブルビショップメイト', hi: '📐ダブル बिशप मेट' }, 
     desc: { en: 'Mate delivered by two bishops on diagonals.', tr: 'İki filin çaprazlardan uyumlu çalışarak yaptığı mat.', es: 'Mate dado por dos alfiles en diagonales.', de: 'Matt durch zwei Läufer auf Diagonalen.', ru: 'Мат двумя слонами по диагоналям.', fr: 'Mat administré par deux fous sur des diagonales.', 'pt-br': 'Mate aplicado por dois bispos nas diagonais.', zh: '由两个象在对角线上完成的将死。', ja: '2つのビショップが対角線上で決めるメイト。', hi: 'विकर्णों पर दो बिशप द्वारा दिया गया मेट।' } 
   },
   { 
@@ -1737,6 +1737,60 @@ const LICHESS_44_CATEGORIES = [
     desc: { en: 'Promoting a pawn on the final rank.', tr: 'Piyonu son yataya ulaştırarak taşa dönüştürme taktikleri.', es: 'Promocionar un peón en la última fila.', de: 'Umwandlung eines Bauern auf der letzten Reihe.', ru: 'Превращение пешки на последней горизонтали.', fr: 'Promouvoir un pion sur la dernière rangée.', 'pt-br': 'Promoção de Peão', zh: '在底线将兵升变。', ja: '最終ランクでポーンを昇格させます。', hi: 'अ अंतिम पंक्ति में प्यादे का प्रमोशन करना।' } 
   }
 ];
+
+function renderCategoryCards(categories) {
+  let html = '';
+  let langKey = i18nDict[currentLang] ? currentLang : 'en';
+
+  categories.forEach(cat => {
+    let nameVal = typeof cat.name === 'object' ? (cat.name[langKey] || cat.name['en']) : cat.name;
+    let descVal = typeof cat.desc === 'object' ? (cat.desc[langKey] || cat.desc['en']) : cat.desc;
+
+    html += `
+      <div class="cat-card" onclick="selectCategory('${cat.id}')">
+        <h3>${nameVal}</h3>
+        <p>${descVal}</p>
+      </div>
+    `;
+  });
+  $('#categoryGrid').html(html);
+}
+
+function selectCategory(catId) {
+  selectedCat = LICHESS_44_CATEGORIES.find(c => c.id === catId) || LICHESS_44_CATEGORIES[0];
+  let langKey = i18nDict[currentLang] ? currentLang : 'en';
+  let catName = typeof selectedCat.name === 'object' ? (selectedCat.name[langKey] || selectedCat.name['en']) : selectedCat.name;
+
+  $('#selectedCatTitle').text(catName);
+  $('#categoryListSection').hide();
+  $('#categoryBoardSection').css('display', 'flex');
+
+  loadCategoryPuzzle();
+}
+
+function backToCategories() {
+  $('#categoryBoardSection').hide();
+  $('#categoryListSection').show();
+}
+
+function setDifficultyOffset(offset) {
+  currentDiffOffset = offset;
+  $('.diff-btn').removeClass('active');$(`#btn-diff-${offset}`).addClass('active');
+  loadCategoryPuzzle();
+}
+
+function switchPage(pageNumber) {
+  $('.nav-btn').removeClass('active');$('.page-view').removeClass('active');
+
+  $(`.nav-btn:nth-child(${pageNumber})`).addClass('active');
+  $(`#page${pageNumber}`).addClass('active');
+
+  if (pageNumber === 2 && dailyCtrl) {
+    dailyCtrl.resize();
+  } else if (pageNumber === 3 && catCtrl) {
+    catCtrl.resize();
+  }
+}
 
 $(document).ready(async function() {
   await loadSavedSession();
@@ -1901,4 +1955,192 @@ function puzzleCtx(which) {
 
 async function finishPuzzle(which, isAutoSolution = false) {
   const c = puzzleCtx(which);
-  c
+  c.setSolved(true);
+  updateDynamicBoardTexts();
+  
+  if (c.ctrl && typeof c.ctrl.lock === 'function') {
+    c.ctrl.lock();
+  }
+
+  if (c.puzzle) {
+    await recordPuzzleToHistory(c.puzzle, true);
+    
+    if (activeUser && activeUser.id) {
+      let change = calculateEloChange(activeUser.elo, c.puzzle.rating || 1500, true);
+      await applyEloUpdate(change);
+    }
+  }
+}
+
+function processMoveVerdict(which, from, to, moveObj) {
+  const c = puzzleCtx(which);
+  const expectedUci = c.sol[c.idx];
+  const userUci = from + to + (moveObj.promotion || '');
+
+  if (userUci === expectedUci || (expectedUci && userUci.substring(0, 4) === expectedUci.substring(0, 4))) {
+    c.game.move(moveObj);
+    c.idx++;
+
+    if (c.idx >= c.sol.length) {
+      finishPuzzle(which, false);
+      return 'ok';
+    }
+
+    const currentGen = c.gen;
+    setTimeout(() => {
+      if (c.gen !== currentGen) return;
+      const responseUci = c.sol[c.idx];
+      if (responseUci) {
+        c.ctrl.playMove(responseUci);
+        c.idx++;
+        if (c.idx >= c.sol.length) {
+          finishPuzzle(which, false);
+        }
+      }
+    }, 400);
+
+    return 'ok';
+  }
+
+  showBoardFeedback(c.indicator, t('msgWrongMove'), '#e74c3c', 2000);
+  return 'wrong';
+}
+
+function initDailyPuzzle() {
+  if (typeof LICHESS_PUZZLES_DATA === 'undefined' || !LICHESS_PUZZLES_DATA.length) return;
+
+  currentActiveDailyPuzzle = LICHESS_PUZZLES_DATA[0];
+  startDailyPuzzle(currentActiveDailyPuzzle);
+}
+
+function startDailyPuzzle(puzzle) {
+  dailyGen++;
+  dailySolved = false;
+  dailyIndex = 0;
+  dailySolution = puzzle.solution ? puzzle.solution.split(' ') : [];
+
+  dailyGame = new Chess(puzzle.fen);
+
+  const initialMove = dailySolution[0];
+  if (initialMove) {
+    dailyGame.move({
+      from: initialMove.substring(0, 2),
+      to: initialMove.substring(2, 4),
+      promotion: initialMove[4] || 'q'
+    });
+    dailyIndex = 1;
+  }
+
+  const playerColor = dailyGame.turn();
+
+  if (!dailyCtrl) {
+    dailyCtrl = createLichessBoard('dailyBoard', {
+      onUserMove: (from, to, legal) => processMoveVerdict('daily', from, to, legal)
+    });
+  }
+
+  dailyCtrl.load(dailyGame, playerColor, initialMove ? [initialMove.substring(0, 2), initialMove.substring(2, 4)] : null);
+  updateDynamicBoardTexts();
+}
+
+function showDailySolution() {
+  if (dailySolved) return;
+  
+  let steps = dailySolution.slice(dailyIndex);
+  let stepIdx = 0;
+
+  function step() {
+    if (stepIdx >= steps.length) {
+      finishPuzzle('daily', true);
+      return;
+    }
+    const moveUci = steps[stepIdx];
+    dailyCtrl.playMove(moveUci);
+    stepIdx++;
+    setTimeout(step, 600);
+  }
+  step();
+}
+
+function loadCategoryPuzzle() {
+  if (typeof LICHESS_PUZZLES_DATA === 'undefined' || !LICHESS_PUZZLES_DATA.length) return;
+
+  let userTargetElo = (activeUser ? activeUser.elo : 1500) + currentDiffOffset;
+  let matching = LICHESS_PUZZLES_DATA.filter(p => {
+    if (!p.themes) return false;
+    let themeList = p.themes.toLowerCase().split(' ');
+    return themeList.includes(selectedCat.id.toLowerCase());
+  });
+
+  if (!matching.length) {
+    matching = LICHESS_PUZZLES_DATA;
+  }
+
+  matching.sort((a, b) => Math.abs((a.rating || 1500) - userTargetElo) - Math.abs((b.rating || 1500) - userTargetElo));
+  
+  let pool = matching.slice(0, 15);
+  let chosen = pool[Math.floor(Math.random() * pool.length)];
+
+  currentActiveCatPuzzle = chosen;
+  startCatPuzzle(chosen);
+}
+
+function startCatPuzzle(puzzle) {
+  catGen++;
+  catSolved = false;
+  catIndex = 0;
+  catSolution = puzzle.solution ? puzzle.solution.split(' ') : [];
+
+  catGame = new Chess(puzzle.fen);
+
+  const initialMove = catSolution[0];
+  if (initialMove) {
+    catGame.move({
+      from: initialMove.substring(0, 2),
+      to: initialMove.substring(2, 4),
+      promotion: initialMove[4] || 'q'
+    });
+    catIndex = 1;
+  }
+
+  const playerColor = catGame.turn();
+
+  if (!catCtrl) {
+    catCtrl = createLichessBoard('catBoard', {
+      onUserMove: (from, to, legal) => processMoveVerdict('cat', from, to, legal)
+    });
+  }
+
+  catCtrl.load(catGame, playerColor, initialMove ? [initialMove.substring(0, 2), initialMove.substring(2, 4)] : null);
+  updateDynamicBoardTexts();
+}
+
+function showHint() {
+  if (catSolved || !catSolution.length || catIndex >= catSolution.length) return;
+  let currentUci = catSolution[catIndex];
+  let fromSq = currentUci.substring(0, 2);
+
+  $(`#catBoard .square-${fromSq}`).addClass('selected-square');
+  setTimeout(() => {
+    $(`#catBoard .square-${fromSq}`).removeClass('selected-square');
+  }, 1500);
+}
+
+function showSolution() {
+  if (catSolved) return;
+  
+  let steps = catSolution.slice(catIndex);
+  let stepIdx = 0;
+
+  function step() {
+    if (stepIdx >= steps.length) {
+      finishPuzzle('cat', true);
+      return;
+    }
+    const moveUci = steps[stepIdx];
+    catCtrl.playMove(moveUci);
+    stepIdx++;
+    setTimeout(step, 600);
+  }
+  step();
+}
