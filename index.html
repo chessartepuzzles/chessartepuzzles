@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChessArte Puzzles</title>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVHRPW9M7R"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVHRPW9M7R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-      gtag('config', 'G-VVHRPW9M7R');
-    </script>
+  gtag('config', 'G-VVHRPW9M7R');
+</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262"
      crossorigin="anonymous"></script>
     <!-- CSS Kütüphaneleri -->
@@ -56,16 +56,9 @@
             <option value="ja">🇯🇵 日本語</option>
             <option value="hi">🇮🇳 हिन्दी</option>
         </select>
-        
-        <!-- Sağ üst ELO alanı (Başlangıçta gizli, kullanıcı giriş yapınca veya ELO belirtince açılır) -->
+        <!-- Sağ üst ELO alanı -->
         <div id="headerEloBox" class="header-elo-display" style="display: none;">
             <span data-i18n="lblYourElo">ELO:</span> <b id="headerEloValue">1500</b>
-        </div>
-
-        <!-- Sağ Üst Kullanıcı/Çıkış Butonu Alanı -->
-        <div id="headerUserActions" style="display: flex; align-items: center; gap: 8px;">
-            <span id="headerUsername" style="font-weight: 600; font-size: 0.9rem; color: #fff;"></span>
-            <button id="btnHeaderExit" class="btn-action" onclick="logoutUser()" style="padding: 5px 12px; font-size: 0.85rem; display: none;" data-i18n="btnExit">Exit</button>
         </div>
     </div>
 </header>
@@ -79,7 +72,6 @@
         <button class="nav-btn active" onclick="switchPage(1)" data-i18n="tabSolution">💡 Solution</button>
         <button class="nav-btn" onclick="switchPage(2)" data-i18n="tabDaily">📅 Daily Puzzle & Analysis</button>
         <button class="nav-btn" onclick="switchPage(3)" data-i18n="tabCategories">📚 Puzzles</button>
-        <button class="nav-btn" onclick="switchPage(4)" data-i18n="tabProfile">👤 Profile</button>
     </nav>
 
     <!-- SAYFA 1: SOLUTION (VİDEO ÇÖZÜM ALANI) -->
@@ -88,8 +80,11 @@
             <div class="board-card full-width-card" style="text-align: center;">
                 <h2 data-i18n="solutionHeader">💡 Today's Solution</h2>
                 
+                <!-- Video Üstü Banner Reklam Alanı (Düzenlendi) -->
                 <div style="margin: 10px auto; text-align: center; max-width: 640px; width: 100%; min-height: 90px; overflow: hidden;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262" crossorigin="anonymous"></script>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262"
+                         crossorigin="anonymous"></script>
+                    <!-- ChessArteVideoUstuBanner -->
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-client="ca-pub-4059637032646262"
@@ -101,6 +96,7 @@
                     </script>
                 </div>
 
+                <!-- Video Konteyner Alanı -->
                 <div id="solutionVideoContainer" style="margin: 20px auto; max-width: 640px; width: 100%; position: relative; background: #000; border-radius: 8px; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 360px;">
                     <video id="mainSolutionVideo" width="100%" controls style="display: none; max-height: 480px;">
                         <source src="solutions/1017C.mp4" type="video/mp4">
@@ -115,14 +111,15 @@
                     <button class="btn-action highlight" onclick="playMainSolutionVideo()" data-i18n="btnSolution">👁️ Show Solution</button>
                 </div>
 
+                <!-- Sosyal Medya Yönlendirme Alanı -->
                 <div class="social-links-container" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://www.instagram.com/chessartepuzzles/" target="_blank" style="text-decoration: none; background: #E1306C; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                    <a href="https://www.instagram.com/chessartepuzzles/" target="_blank" style="text-decoration: none; background: #E1306C; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
                         📷 Instagram
                     </a>
-                    <a href="https://www.facebook.com/profile.php?id=61592449494334&locale=tr_TR" target="_blank" style="text-decoration: none; background: #1877F2; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                    <a href="https://www.facebook.com/profile.php?id=61592449494334&locale=tr_TR" target="_blank" style="text-decoration: none; background: #1877F2; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
                         📘 Facebook
                     </a>
-                    <a href="https://www.youtube.com/@ChessArtePuzzles" target="_blank" style="text-decoration: none; background: #FF0000; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+                    <a href="https://www.youtube.com/@ChessArtePuzzles" target="_blank" style="text-decoration: none; background: #FF0000; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
                         ▶️ YouTube
                     </a>
                 </div>
@@ -148,6 +145,7 @@
 
     <!-- SAYFA 3: KATEGORİLER VE BULMACALAR -->
     <section id="page3" class="page-view">
+        <!-- Kategori Seçim Izgarası -->
         <div id="categoryListSection">
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search categories..." data-i18n-placeholder="searchPlaceholder">
@@ -155,12 +153,14 @@
             <div id="categoryGrid" class="category-grid"></div>
         </div>
 
+        <!-- Seçilen Kategori Tahta Ekranı -->
         <div id="categoryBoardSection" class="board-card full-width-card" style="display: none;">
             <div class="board-header">
                 <button class="btn-back" onclick="backToCategories()" data-i18n="btnBackCats">⬅️ Back to Categories</button>
                 <h2 id="selectedCatTitle">Category</h2>
             </div>
 
+            <!-- Zorluk Ayar Butonları -->
             <div class="diff-selector">
                 <button id="btn-diff--200" class="diff-btn" onclick="setDifficultyOffset(-200)" data-i18n="diffEasy">Easy (-200)</button>
                 <button id="btn-diff-0" class="diff-btn active" onclick="setDifficultyOffset(0)" data-i18n="diffNormal">Normal (0)</button>
@@ -178,47 +178,15 @@
             </div>
         </div>
     </section>
-
-    <!-- SAYFA 4: PROFİL VE İSTATİSTİKLER -->
-    <section id="page4" class="page-view">
-        <div class="centered-grid">
-            <div class="board-card full-width-card">
-                <h2 data-i18n="profileHeader">👤 User Profile & Statistics</h2>
-                
-                <div class="stats-summary" style="margin-top: 15px;">
-                    <div class="stat-box">
-                        <span class="stat-value" id="statTotal">0</span>
-                        <span class="stat-label" data-i18n="statTotal">Total Solved</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-value text-success" id="statCorrect">0</span>
-                        <span class="stat-label" data-i18n="statCorrect">Correct</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-value text-danger" id="statWrong">0</span>
-                        <span class="stat-label" data-i18n="statWrong">Wrong</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-value text-highlight" id="statRatio">0%</span>
-                        <span class="stat-label" data-i18n="statRatio">Win Rate</span>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 25px; margin-bottom: 12px; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 5px;" data-i18n="puzzleHistoryHeader">📜 Puzzle History</h3>
-                <div id="puzzleHistoryList" class="history-list">
-                    <!-- Dinamik geçmiş elemanları buraya eklenecek -->
-                </div>
-            </div>
-        </div>
-    </section>
 </main>
 
 <!-- =========================================================
-     3. ELO / ÜYELİK VE ŞİFRE YENİLEME MODALI
+     3. ELO / ÜYELİK MODALI
      ========================================================= -->
 <div id="eloPromptModal" class="modal-overlay hidden">
   <div class="modal-card">
     
+    <!-- 1. Seçim Ekranı -->
     <div id="authChoiceView">
       <h2 data-i18n="promptEloTitle">What is your ELO?</h2>
       <p data-i18n="authChoiceSub">Choose a method to continue:</p>
@@ -229,6 +197,7 @@
       </div>
     </div>
 
+    <!-- 2. Giriş Formu -->
     <div id="authLoginForm" style="display:none;">
       <h2 data-i18n="btnLoginChoice">Log In</h2>
       <p data-i18n="loginSub">Log in with your email and password.</p>
@@ -238,10 +207,11 @@
       <div style="margin-top:10px;">
         <a href="#" onclick="showAuthForm('forgot')" data-i18n="forgotPassLink" style="color:#f39c12; text-decoration:none;">Forgot Password?</a>
       </div>
-      <p id="loginErrorMsg" class="error-msg" style="display:none; color:#e74c3c; margin-top:5px;"></p>
+      <p id="loginErrorMsg" class="error-msg" style="display:none;"></p>
       <button class="btn-outline" onclick="showAuthForm('choice')" style="margin-top:15px;" data-i18n="btnBack">⬅️ Back</button>
     </div>
 
+    <!-- 3. Kayıt Formu -->
     <div id="authRegisterForm" style="display:none;">
       <h2 data-i18n="btnRegisterChoice">Sign Up</h2>
       <p data-i18n="registerSub">Set username, email, password, and ELO.</p>
@@ -250,35 +220,27 @@
       <input type="password" id="regPassword" placeholder="Password" data-i18n-placeholder="phPassword" />
       <input type="number" id="regEloInput" value="1500" min="0" max="3000" placeholder="ELO" />
       <button class="btn-primary" onclick="submitRegister()" data-i18n="btnRegisterStart">Register & Start</button>
-      <p id="regErrorMsg" class="error-msg" style="display:none; color:#e74c3c; margin-top:5px;"></p>
+      <p id="regErrorMsg" class="error-msg" style="display:none;"></p>
       <button class="btn-outline" onclick="showAuthForm('choice')" style="margin-top:15px;" data-i18n="btnBack">⬅️ Back</button>
     </div>
 
+    <!-- 4. Şifremi Unuttum Formu -->
     <div id="authForgotForm" style="display:none;">
       <h2 data-i18n="forgotTitle">Reset Password</h2>
       <p data-i18n="forgotSub">Enter your registered email address.</p>
       <input type="email" id="forgotEmail" placeholder="Email Address" data-i18n-placeholder="phEmail" />
       <button class="btn-primary" onclick="submitForgotPassword()" data-i18n="btnSendReset">Send Reset Link</button>
-      <p id="forgotMsg" class="error-msg" style="display:none; margin-top:5px;"></p>
+      <p id="forgotMsg" class="error-msg" style="display:none;"></p>
       <button class="btn-outline" onclick="showAuthForm('login')" style="margin-top:15px;" data-i18n="btnBackLogin">⬅️ Back to Log In</button>
     </div>
 
-    <!-- Yeni Şifre Belirleme Ekranı (Şifre Sıfırlama Linkine Tıklandığında Açılır) -->
-    <div id="authUpdatePassForm" style="display:none;">
-      <h2 data-i18n="updatePassTitle">Set New Password</h2>
-      <p data-i18n="updatePassSub">Please enter your new password below.</p>
-      <input type="password" id="newPassword" placeholder="New Password" data-i18n-placeholder="phPassword" />
-      <button class="btn-primary" onclick="submitUpdatePassword()" data-i18n="btnUpdatePass">Update Password</button>
-      <p id="updatePassMsg" class="error-msg" style="display:none; margin-top:5px;"></p>
-      <button class="btn-outline" onclick="showAuthForm('login')" style="margin-top:15px;" data-i18n="btnBackLogin">⬅️ Back to Log In</button>
-    </div>
-
+    <!-- 5. Misafir Formu -->
     <div id="authGuestForm" style="display:none;">
       <h2 data-i18n="promptEloTitle">What is your ELO?</h2>
       <p data-i18n="promptEloSub">Please enter a value between 0 and 3000.</p>
       <input type="number" id="userEloInput" value="1500" min="0" max="3000" />
       <button class="btn-primary" onclick="submitUserElo()" data-i18n="btnSaveElo">Save & Start</button>
-      <p id="eloErrorMsg" class="error-msg" style="display:none; color:#e74c3c; margin-top:5px;"></p>
+      <p id="eloErrorMsg" class="error-msg" style="display:none;"></p>
       <button class="btn-outline" onclick="showAuthForm('choice')" style="margin-top:15px;" data-i18n="btnBack">⬅️ Back</button>
     </div>
 
