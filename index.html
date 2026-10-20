@@ -74,17 +74,21 @@
         <button class="nav-btn" onclick="switchPage(3)" data-i18n="tabCategories">📚 Puzzles</button>
     </nav>
 
-    <!-- SAYFA 1: SOLUTION (VİDEO ÇÖZÜM ALANI) -->
+    <!-- SAYFA 1: SOLUTION (ÇOKLU VİDEO ÇÖZÜM ALANI) -->
     <section id="page1" class="page-view active">
         <div class="centered-grid">
             <div class="board-card full-width-card" style="text-align: center;">
-                <h2 data-i18n="solutionHeader">💡 Today's Solution</h2>
+                <h2 data-i18n="solutionHeader">💡 Today's Solutions</h2>
                 
-                <!-- Video Üstü Banner Reklam Alanı (Düzenlendi) -->
+                <!-- Video Seçim Sekmeleri -->
+                <div class="solution-tabs" style="display: flex; justify-content: center; gap: 10px; margin: 15px 0; flex-wrap: wrap;">
+                    <button class="btn-action solution-tab-btn active" onclick="switchSolutionVideo(1)" data-i18n="btnPuzzle1">🎬 Puzzle 1</button>
+                    <button class="btn-action solution-tab-btn" onclick="switchSolutionVideo(2)" data-i18n="btnPuzzle2">🎬 Puzzle 2</button>
+                </div>
+
+                <!-- Video Üstü Reklam Alanı -->
                 <div style="margin: 10px auto; text-align: center; max-width: 640px; width: 100%; min-height: 90px; overflow: hidden;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262"
-                         crossorigin="anonymous"></script>
-                    <!-- ChessArteVideoUstuBanner -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262" crossorigin="anonymous"></script>
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-client="ca-pub-4059637032646262"
@@ -96,34 +100,40 @@
                     </script>
                 </div>
 
-                <!-- Video Konteyner Alanı -->
-                <div id="solutionVideoContainer" style="margin: 20px auto; max-width: 640px; width: 100%; position: relative; background: #000; border-radius: 8px; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 360px;">
-                    <video id="mainSolutionVideo" width="100%" controls style="display: none; max-height: 480px;">
-                        <source src="solutions/1017C.mp4" type="video/mp4">
+                <!-- 1. Video Konteyner -->
+                <div id="videoContainer1" class="solution-video-box" style="margin: 20px auto; max-width: 640px; width: 100%; position: relative; background: #000; border-radius: 8px; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 360px;">
+                    <video id="solutionVideo1" width="100%" controls style="display: none; max-height: 480px;">
+                        <source src="solutions/1020C.mp4" type="video/mp4">
                         Tarayıcınız video etiketini desteklemiyor.
                     </video>
-                    <div id="videoPlaceholderText" style="color: #aaa; padding: 40px; font-family: sans-serif;">
-                        <p data-i18n="videoPlaceholder">Çözüm videosunu izlemek için aşağıdaki butona tıklayın.</p>
+                    <div id="videoPlaceholderText1" style="color: #aaa; padding: 40px; font-family: sans-serif;">
+                        <p data-i18n="videoPlaceholder1">Click the button below to watch puzzle 1 solution video.</p>
                     </div>
                 </div>
 
+                <!-- 2. Video Konteyner (Hizalama ve Ortalanma Düzeltildi) -->
+                <div id="videoContainer2" class="solution-video-box" style="margin: 20px auto; max-width: 640px; width: 100%; position: relative; background: #000; border-radius: 8px; overflow: hidden; display: none; justify-content: center; align-items: center; min-height: 360px;">
+                    <video id="solutionVideo2" width="100%" controls style="display: none; max-height: 480px;">
+                        <source src="solutions/1017C.mp4" type="video/mp4">
+                        Tarayıcınız video etiketini desteklemiyor.
+                    </video>
+                    <div id="videoPlaceholderText2" style="color: #aaa; padding: 40px; font-family: sans-serif;">
+                        <p data-i18n="videoPlaceholder2">Click the button below to watch puzzle 2 solution video.</p>
+                    </div>
+                </div>
+
+                <!-- Oynatma Butonları (Her ikisi de yeşil 'highlight' yapıldı) -->
                 <div class="board-actions" style="justify-content: center;">
-                    <button class="btn-action highlight" onclick="playMainSolutionVideo()" data-i18n="btnSolution">👁️ Show Solution</button>
+                    <button id="playBtn1" class="btn-action highlight" onclick="playSolutionVideo(1)" data-i18n="btnShowSolution1">👁️ Show Solution 1</button>
+                    <button id="playBtn2" class="btn-action highlight" onclick="playSolutionVideo(2)" style="display: none;" data-i18n="btnShowSolution2">👁️ Show Solution 2</button>
                 </div>
 
-                <!-- Sosyal Medya Yönlendirme Alanı -->
+                <!-- Sosyal Medya Alanı -->
                 <div class="social-links-container" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://www.instagram.com/chessartepuzzles/" target="_blank" style="text-decoration: none; background: #E1306C; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
-                        📷 Instagram
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61592449494334&locale=tr_TR" target="_blank" style="text-decoration: none; background: #1877F2; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
-                        📘 Facebook
-                    </a>
-                    <a href="https://www.youtube.com/@ChessArtePuzzles" target="_blank" style="text-decoration: none; background: #FF0000; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-family: sans-serif; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;">
-                        ▶️ YouTube
-                    </a>
+                    <a href="https://www.instagram.com/chessartepuzzles/" target="_blank" style="text-decoration: none; background: #E1306C; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">📷 Instagram</a>
+                    <a href="https://www.facebook.com/profile.php?id=61592449494334&locale=tr_TR" target="_blank" style="text-decoration: none; background: #1877F2; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">📘 Facebook</a>
+                    <a href="https://www.youtube.com/@ChessArtePuzzles" target="_blank" style="text-decoration: none; background: #FF0000; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">▶️ YouTube</a>
                 </div>
-
             </div>
         </div>
     </section>
