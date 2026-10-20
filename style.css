@@ -604,9 +604,3 @@ body > img.piece-417db {
 ins.adsbygoogle:not([data-ad-status="filled"]) {
   display: none !important;
 }
-.solution-tab-btn.active {
-  background-color: #00ff66 !important;
-  color: #121212 !important;
-  font-weight: 700;
-  border-color: #00ff66 !important;
-}
