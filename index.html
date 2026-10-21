@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChessArte Puzzles</title>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVHRPW9M7R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Favicon 404 Hatasını Önleme -->
+    <link rel="icon" href="data:,">
 
-  gtag('config', 'G-VVHRPW9M7R');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVHRPW9M7R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VVHRPW9M7R');
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262"
      crossorigin="anonymous"></script>
+
     <!-- CSS Kütüphaneleri -->
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
     <link rel="stylesheet" href="style.css">
@@ -93,15 +97,12 @@
                     <button class="btn-action solution-tab-btn" onclick="switchSolutionVideo(2)" data-i18n="btnPuzzle2">🎬 Puzzle 2</button>
                 </div>
 
-                <!-- Video Üstü Reklam Alanı -->
-                <div style="margin: 10px auto; text-align: center; max-width: 640px; width: 100%; min-height: 90px; overflow: hidden;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4059637032646262" crossorigin="anonymous"></script>
+                <!-- Video Üstü Reklam Alanı (Boyut çakışma hatası giderildi) -->
+                <div style="margin: 10px auto; text-align: center; max-width: 640px; width: 100%; min-height: 100px; overflow: hidden;">
                     <ins class="adsbygoogle"
-                         style="display:block"
+                         style="display:inline-block;width:100%;max-width:640px;height:90px"
                          data-ad-client="ca-pub-4059637032646262"
-                         data-ad-slot="9874992109"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
+                         data-ad-slot="9874992109"></ins>
                     <script>
                          (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>

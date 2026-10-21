@@ -599,7 +599,7 @@ const i18nDict = {
     errRegTaken: "このメールアドレスは既に使用されています。",
     forgotTitle: "パスワードリセット",
     forgotSub: "登録したメールアドレスを入力してください。",
-    btnSendReset: "リセットリンクを送信",
+    btnSendReset: "リセットリンク strike",
     btnBackLogin: "⬅️ ログイン画面に戻る",
     forgotPassLink: "パスワードをお忘れですか？",
     errForgotEmail: "メールアドレスを入力してください。",
@@ -802,23 +802,25 @@ const SoundManager = (() => {
 
   function playWoodClick(freq, duration, decay) {
     const ctx = getCtx();
-    if (!ctx) return;
+    if (!ctx || ctx.state !== 'running') return;
 
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + duration);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + duration);
 
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + decay);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + decay);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + duration);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + duration);
+    } catch(e) {}
   }
 
   function play(name) {
@@ -846,7 +848,7 @@ const SoundManager = (() => {
   }
 
   function init() {
-    $(document).one('pointerdown keydown touchstart', () => { getCtx(); });
+    $(document).one('pointerdown keydown touchstart click', () => { getCtx(); });
   }
 
   return { init, play, setEnabled: v => { enabled = !!v; } };
@@ -1259,8 +1261,12 @@ function handleHeaderAuthAction() {
 }
 
 async function handleLogout() {
-  if (supabaseClient) {
-    await supabaseClient.auth.signOut();
+  if (supabaseClient && activeUser.id) {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch(e) {
+      console.log("Sunucu yanıt vermedi, yerel oturum temizleniyor.");
+    }
   }
   localStorage.removeItem('cap_current_username');
   localStorage.removeItem('cap_user_elo');
@@ -1300,27 +1306,19 @@ async function applyEloUpdate(change) {
 }
 
 async function recordPuzzleToSupabase(puzzleId, isSolved) {
-  console.log("Supabase'e kayıt deneniyor -> User ID:", activeUser.id, "Puzzle ID:", puzzleId, "Durum:", isSolved);
-  
   if (!supabaseClient || !activeUser.id) {
-    console.warn("Supabase veya activeUser.id boş olduğu için veri yazılmadı. (Misafir kullanıcı veya oturum açılmamış).");
+    console.warn("Misafir oturumu; veri yazılmadı.");
     return;
   }
   try {
-    const { data, error } = await supabaseClient
+    await supabaseClient
       .from('user_puzzles')
       .upsert(
         [{ user_id: activeUser.id, puzzle_id: puzzleId || "unknown_puzzle", is_solved: isSolved }],
         { onConflict: 'user_id, puzzle_id' }
       );
-      
-    if (error) {
-      console.error("Supabase Veritabanı Kayıt Hatası:", error.message);
-    } else {
-      console.log("Bulmaca geçmişe başarıyla kaydedildi!", data);
-    }
   } catch (e) {
-    console.error("Bulmaca kaydedilemedi (Ağ/Bağlantı Hatası):", e);
+    console.error("Bulmaca kaydedilemedi:", e);
   }
 }
 
@@ -1842,7 +1840,7 @@ async function openUserStatsModal() {
   $('#modalUserElo').text(activeUser.elo);
   $('#statsModalUsername').text(activeUser.username);
   
-  let historyHtml = '<p style="color: #aaa; text-align: center; font-size: 0.85rem;">Yükleniyor...</p>';
+  let historyHtml = `<p style="color: #aaa; text-align: center; font-size: 0.85rem;">${currentLang === 'tr' ? 'Yükleniyor...' : 'Loading...'}</p>`;
   $('#solvedPuzzlesListContainer').html(historyHtml);
   $('#userStatsModal').removeClass('hidden');
 
@@ -1868,15 +1866,32 @@ async function openUserStatsModal() {
 
   historyHtml = '';
   if (remoteHistory.length > 0) {
+    let db = window.globalPuzzleDb || {};
+
     remoteHistory.forEach(item => {
       let badgeColor = item.is_solved ? '#2ecc71' : '#e74c3c';
       let statusText = item.is_solved ? t('statusCorrect') : t('statusWrong');
-      let displayId = item.puzzle_id.length > 12 ? item.puzzle_id.substring(0, 12) + '...' : item.puzzle_id;
-      
+      let puzzleLabel = currentLang === 'tr' ? 'Bulmaca' : 'Puzzle';
+
+      // Yerel veri tabanından FEN kodunu bularak mini tahta resmi oluşturma
+      let fenStr = item.puzzle_id;
+      Object.keys(db).forEach(k => {
+        let cat = db[k];
+        let allCatPuzzles = [].concat(cat.easy || [], cat.medium || [], cat.hard || []);
+        let match = allCatPuzzles.find(p => p.id === item.puzzle_id || p.fen === item.puzzle_id);
+        if (match && match.fen) fenStr = match.fen;
+      });
+
+      let fenEncoded = encodeURIComponent(fenStr);
+      let miniBoardUrl = `https://lichess1.org/export/fen.gif?fen=${fenEncoded}&color=white&size=36`;
+
       historyHtml += `
-        <div class="puzzle-history-item" style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #222; cursor:pointer;" onclick='loadPuzzleById("${item.puzzle_id}")'>
-          <span>Bulmaca: <b>${displayId}</b></span>
-          <span style="color: ${badgeColor};">${statusText} ➔</span>
+        <div class="puzzle-history-item" style="display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #222; cursor:pointer;" onclick='loadPuzzleById("${item.puzzle_id}")'>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img src="${miniBoardUrl}" alt="Board" style="width:36px; height:36px; border-radius:4px; background:#222;" onerror="this.style.display='none'">
+            <span style="font-size:0.85rem; color:#ccc;">${puzzleLabel}</span>
+          </div>
+          <span style="color: ${badgeColor}; font-size:0.85rem;">${statusText} ➔</span>
         </div>`;
     });
   }
@@ -1915,9 +1930,9 @@ function loadPuzzleById(puzzleId) {
     switchPage(3);
     $('#categoryListSection').hide();
     $('#categoryBoardSection').css('display', 'flex');
-    $('#selectedCatTitle').text("Geçmiş Bulmaca");
+    $('#selectedCatTitle').text(currentLang === 'tr' ? "Geçmiş Bulmaca" : "History Puzzle");
     startCatPuzzle(foundPuzzle);
   } else {
-    alert("Bulmaca detayları yerel veritabanında bulunamadı.");
+    alert(currentLang === 'tr' ? "Bulmaca detayları yerel veritabanında bulunamadı." : "Puzzle details could not be found in the local database.");
   }
 }
