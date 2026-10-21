@@ -1802,18 +1802,11 @@ function backToCategories() {
 }
 
 /* =========================================================
-   8. KULLANICI İSTATİSTİKLERİ VE KULLANICIYA ÖZEL GEÇMİŞ YÖNETİMİ
+   8. KULLANICI İSTATİSTİKLERİ VE SUPABASE TABANLI GEÇMİŞ YÖNETİMİ
    ========================================================= */
 
-function getHistoryStorageKey() {
-  if (activeUser && activeUser.username) {
-    return `cap_local_history_${activeUser.username}`;
-  }
-  return 'cap_local_history_guest';
-}
-
 async function openUserStatsModal() {
-  if (!activeUser.username) {
+  if (!activeUser.username || !activeUser.id) {
     promptEloModal();
     return;
   }
@@ -1821,21 +1814,40 @@ async function openUserStatsModal() {
   $('#modalUserElo').text(activeUser.elo);
   $('#statsModalUsername').text(activeUser.username);
   
-  let historyHtml = '';
-  let solvedCount = 0;
+  let historyHtml = '<p style="color: #aaa; text-align: center; font-size: 0.85rem;">Yükleniyor...</p>';
+  $('#solvedPuzzlesListContainer').html(historyHtml);
+  $('#userStatsModal').removeClass('hidden');
 
-  let storageKey = getHistoryStorageKey();
-  let localHistory = JSON.parse(localStorage.getItem(storageKey) || '[]');
-  solvedCount = localHistory.length;
+  let solvedCount = 0;
+  let remoteHistory = [];
+
+  if (supabaseClient && activeUser.id) {
+    // Doğrudan Supabase'den kullanıcının geçmişini çekiyoruz (Cihaz bağımsız!)
+    const { data, error } = await supabaseClient
+      .from('user_puzzles')
+      .select('*')
+      .eq('user_id', activeUser.id)
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      remoteHistory = data;
+      solvedCount = data.filter(p => p.is_solved).length;
+    }
+  }
+
   $('#modalSolvedCount').text(solvedCount);
 
-  if (localHistory.length > 0) {
-    localHistory.forEach(item => {
-      let badgeColor = item.isSolved ? '#2ecc71' : '#e74c3c';
-      let statusText = item.isSolved ? t('statusCorrect') : t('statusWrong');
+  historyHtml = '';
+  if (remoteHistory.length > 0) {
+    remoteHistory.forEach(item => {
+      let badgeColor = item.is_solved ? '#2ecc71' : '#e74c3c';
+      let statusText = item.is_solved ? t('statusCorrect') : t('statusWrong');
+      // Puzzles.js içerisinden bulmaca detayını bulmaya çalışalım
+      let puzzleRating = item.rating || 1500; 
+      
       historyHtml += `
-        <div class="puzzle-history-item" onclick='loadPuzzleObject(${JSON.stringify(item)})'>
-          <span>${t('puzzleEloLabel')}: <b>${item.rating || 1500}</b></span>
+        <div class="puzzle-history-item" style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #222; cursor:pointer;" onclick='loadPuzzleById("${item.puzzle_id}")'>
+          <span>Bulmaca ID: <b>${item.puzzle_id.substring(0, 8)}...</b></span>
           <span style="color: ${badgeColor};">${statusText} ➔</span>
         </div>`;
     });
@@ -1847,41 +1859,52 @@ async function openUserStatsModal() {
 
   $('#solvedPuzzlesListContainer').html(historyHtml);
   
-  // Modal içerisindeki statik metinlere i18n etiketleri eklendi ve güncellendi
   $('#statsModalTitle').text(t('statsTitle'));
   $('#labelModalUserElo').html(`<b>${t('statsElo')}</b> <span id="modalUserElo">${activeUser.elo}</span>`);
   $('#labelModalSolvedCount').html(`<b>${t('statsTotalSolved')}</b> <span id="modalSolvedCount">${solvedCount}</span>`);
   $('#statsHistorySectionTitle').text(t('statsHistoryTitle'));
   $('#closeStatsBtn').text(t('btnClose'));
-
-  $('#userStatsModal').removeClass('hidden');
 }
 
 function closeUserStatsModal() {
   $('#userStatsModal').addClass('hidden');
 }
 
-function recordLocalPuzzleHistory(puzzle, isSolved) {
-  if (!puzzle) return;
-  let storageKey = getHistoryStorageKey();
-  let localHistory = JSON.parse(localStorage.getItem(storageKey) || '[]');
-  let existingIndex = localHistory.findIndex(p => p.fen === puzzle.fen);
-  if (existingIndex !== -1) {
-    localHistory[existingIndex].isSolved = isSolved;
-  } else {
-    localHistory.unshift({ ...puzzle, isSolved });
-    if (localHistory.length > 50) localHistory.pop();
+async function recordPuzzleToSupabase(puzzleId, isSolved) {
+  if (!supabaseClient || !activeUser.id) return;
+  try {
+    // UPSERT (Conflict durumunda güncelleme yapması için onConflict ekledik)
+    await supabaseClient
+      .from('user_puzzles')
+      .upsert(
+        [{ user_id: activeUser.id, puzzle_id: puzzleId, is_solved: isSolved }],
+        { onConflict: 'user_id, puzzle_id' }
+      );
+  } catch (e) {
+    console.error("Bulmaca kaydedilemedi:", e);
   }
-  localStorage.setItem(storageKey, JSON.stringify(localHistory));
 }
 
-function loadPuzzleObject(puzzle) {
+function loadPuzzleById(puzzleId) {
   closeUserStatsModal();
-  switchPage(3);
-  $('#categoryListSection').hide();
-  $('#categoryBoardSection').css('display', 'flex');
-  $('#selectedCatTitle').text("Geçmiş Bulmaca (Pratik)");
-  
-  currentActiveCatPuzzle = { ...puzzle, isFromHistory: true };
-  startCatPuzzle(currentActiveCatPuzzle);
+  let db = window.globalPuzzleDb || {};
+  let foundPuzzle = null;
+
+  // Veritabanında bu ID'ye sahip bulmacayı arayalım
+  Object.keys(db).forEach(k => {
+    let cat = db[k];
+    let allCatPuzzles = [].concat(cat.easy || [], cat.medium || [], cat.hard || []);
+    let match = allCatPuzzles.find(p => p.id === puzzleId || p.fen === puzzleId);
+    if (match) foundPuzzle = match;
+  });
+
+  if (foundPuzzle) {
+    switchPage(3);
+    $('#categoryListSection').hide();
+    $('#categoryBoardSection').css('display', 'flex');
+    $('#selectedCatTitle').text("Geçmiş Bulmaca");
+    startCatPuzzle(foundPuzzle);
+  } else {
+    alert("Bulmaca detayları yerel veritabanında bulunamadı.");
+  }
 }
