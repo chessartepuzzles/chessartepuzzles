@@ -1,5 +1,5 @@
 /* =========================================================
-   0. SUPABASE İSTEMCİSİ BAŞLATMA
+   0. SUPABASE İSTEMCİSİ BAŞLATMA VE OTURUM YÖNETİMİ
    ========================================================= */
 const SUPABASE_URL = 'https://aqvtympzzjnqdyofbvlx.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_hhkarS-UnZgynhzJUCh0Qw_iCyiIUqv';
@@ -1302,8 +1302,15 @@ async function applyEloUpdate(change) {
 async function recordPuzzleToSupabase(puzzleId, isSolved) {
   if (!supabaseClient || !activeUser.id) return;
   try {
-    await supabaseClient.from('user_puzzles').insert([{ user_id: activeUser.id, puzzle_id: puzzleId, is_solved: isSolved }]);
-  } catch (e) {}
+    await supabaseClient
+      .from('user_puzzles')
+      .upsert(
+        [{ user_id: activeUser.id, puzzle_id: puzzleId, is_solved: isSolved }],
+        { onConflict: 'user_id, puzzle_id' }
+      );
+  } catch (e) {
+    console.error("Bulmaca kaydedilemedi:", e);
+  }
 }
 
 /* =========================================================
@@ -1389,21 +1396,33 @@ const LICHESS_44_CATEGORIES = [
 ];
 
 $(document).ready(async function() {
-  let savedUname = localStorage.getItem('cap_current_username');
-  let savedElo = localStorage.getItem('cap_user_elo');
+  // Supabase Oturum Kontrolü (Sayfa yenilendiğinde oturumu otomatik yakala)
+  if (supabaseClient) {
+    try {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session && session.user) {
+        activeUser.id = session.user.id;
+        const meta = session.user.user_metadata || {};
+        activeUser.username = meta.username || session.user.email.split('@')[0];
+        activeUser.elo = meta.elo !== undefined ? parseInt(meta.elo, 10) : 1500;
+      }
+    } catch (e) {
+      console.error("Oturum alınamadı:", e);
+    }
+  }
 
-  if (savedUname) {
-    let savedData = localStorage.getItem('cap_user_' + savedUname);
-    if (savedData) {
-      let userObj = JSON.parse(savedData);
-      activeUser.username = userObj.username;
-      activeUser.elo = userObj.elo;
-    } else {
+  // Eğer Supabase'den gelmediyse localStorage kontrolü yap
+  if (!activeUser.username) {
+    let savedUname = localStorage.getItem('cap_current_username');
+    let savedElo = localStorage.getItem('cap_user_elo');
+
+    if (savedUname) {
       activeUser.username = savedUname;
     }
-  } else if (savedElo) {
-    let parsed = parseInt(savedElo, 10);
-    if (!isNaN(parsed)) activeUser.elo = parsed;
+    if (savedElo) {
+      let parsed = parseInt(savedElo, 10);
+      if (!isNaN(parsed)) activeUser.elo = parsed;
+    }
   }
 
   $('#headerEloValue').text(activeUser.elo);
@@ -1521,7 +1540,6 @@ async function handlePuzzleFailure(which) {
     if (currentActiveCatPuzzle.id) {
       recordPuzzleToSupabase(currentActiveCatPuzzle.id, false);
     }
-    recordLocalPuzzleHistory(currentActiveCatPuzzle, false);
   }
 }
 
@@ -1544,7 +1562,6 @@ async function finishPuzzle(which, isAutoSolution = false) {
       if (currentActiveCatPuzzle.id) {
         recordPuzzleToSupabase(currentActiveCatPuzzle.id, true);
       }
-      recordLocalPuzzleHistory(currentActiveCatPuzzle, true);
     }
   }
 
@@ -1822,7 +1839,6 @@ async function openUserStatsModal() {
   let remoteHistory = [];
 
   if (supabaseClient && activeUser.id) {
-    // Doğrudan Supabase'den kullanıcının geçmişini çekiyoruz (Cihaz bağımsız!)
     const { data, error } = await supabaseClient
       .from('user_puzzles')
       .select('*')
@@ -1842,8 +1858,6 @@ async function openUserStatsModal() {
     remoteHistory.forEach(item => {
       let badgeColor = item.is_solved ? '#2ecc71' : '#e74c3c';
       let statusText = item.is_solved ? t('statusCorrect') : t('statusWrong');
-      // Puzzles.js içerisinden bulmaca detayını bulmaya çalışalım
-      let puzzleRating = item.rating || 1500; 
       
       historyHtml += `
         <div class="puzzle-history-item" style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #222; cursor:pointer;" onclick='loadPuzzleById("${item.puzzle_id}")'>
@@ -1870,27 +1884,11 @@ function closeUserStatsModal() {
   $('#userStatsModal').addClass('hidden');
 }
 
-async function recordPuzzleToSupabase(puzzleId, isSolved) {
-  if (!supabaseClient || !activeUser.id) return;
-  try {
-    // UPSERT (Conflict durumunda güncelleme yapması için onConflict ekledik)
-    await supabaseClient
-      .from('user_puzzles')
-      .upsert(
-        [{ user_id: activeUser.id, puzzle_id: puzzleId, is_solved: isSolved }],
-        { onConflict: 'user_id, puzzle_id' }
-      );
-  } catch (e) {
-    console.error("Bulmaca kaydedilemedi:", e);
-  }
-}
-
 function loadPuzzleById(puzzleId) {
   closeUserStatsModal();
   let db = window.globalPuzzleDb || {};
   let foundPuzzle = null;
 
-  // Veritabanında bu ID'ye sahip bulmacayı arayalım
   Object.keys(db).forEach(k => {
     let cat = db[k];
     let allCatPuzzles = [].concat(cat.easy || [], cat.medium || [], cat.hard || []);
