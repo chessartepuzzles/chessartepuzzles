@@ -71,7 +71,18 @@ const i18nDict = {
     msgWrongMove: "❌ Wrong move! Try again.",
     msgCorrectMove: "✅ Correct! Keep going...",
     msgSolved: "🎉 Excellent! Puzzle solved.",
-    msgSolvedDaily: "🎉 Excellent! Daily puzzle solved."
+    msgSolvedDaily: "🎉 Excellent! Daily puzzle solved.",
+    btnLogout: "Log Out",
+    btnLogin: "Log In",
+    guestUser: "Guest",
+    statsTitle: "User Statistics",
+    statsElo: "Current ELO:",
+    statsTotalSolved: "Total Solved Puzzles:",
+    statsHistoryTitle: "Solved Puzzles (Correct / Wrong)",
+    statsNoHistory: "No puzzle history recorded yet.",
+    statusCorrect: "Solved Correctly",
+    statusWrong: "Wrong / Tried",
+    btnClose: "Close"
   },
   tr: {
     tagline: "Satranç Gelişim Platformu",
@@ -127,7 +138,18 @@ const i18nDict = {
     msgWrongMove: "❌ Yanlış hamle! Tekrar dene.",
     msgCorrectMove: "✅ Doğru! Devam et...",
     msgSolved: "🎉 Mükemmel! Bulmacayı çözdünüz.",
-    msgSolvedDaily: "🎉 Mükemmel! Günlük bulmacayı çözdünüz."
+    msgSolvedDaily: "🎉 Mükemmel! Günlük bulmacayı çözdünüz.",
+    btnLogout: "Çıkış Yap",
+    btnLogin: "Giriş Yap",
+    guestUser: "Misafir",
+    statsTitle: "Kullanıcı İstatistikleri",
+    statsElo: "Mevcut ELO:",
+    statsTotalSolved: "Çözülen Toplam Bulmaca:",
+    statsHistoryTitle: "Çözülen Bulmacalar (Doğru / Yanlış)",
+    statsNoHistory: "Henüz kaydedilmiş bulmaca geçmişi yok.",
+    statusCorrect: "Doğru Çözüldü",
+    statusWrong: "Yanlış / Denendi",
+    btnClose: "Kapat"
   },
   es: {
     tagline: "Plataforma de Desarrollo de Ajedrez",
@@ -183,7 +205,18 @@ const i18nDict = {
     msgWrongMove: "❌ ¡Movimiento incorrecto! Inténtalo de nuevo.",
     msgCorrectMove: "✅ ¡Correcto! Sigue así...",
     msgSolved: "🎉 ¡Excelente! Puzle resuelto.",
-    msgSolvedDaily: "🎉 ¡Excelente! Puzle diario resuelto."
+    msgSolvedDaily: "🎉 ¡Excelente! Puzle diario resuelto.",
+    btnLogout: "Cerrar sesión",
+    btnLogin: "Iniciar sesión",
+    guestUser: "Invitado",
+    statsTitle: "Estadísticas de usuario",
+    statsElo: "ELO actual:",
+    statsTotalSolved: "Puzzles resueltos en total:",
+    statsHistoryTitle: "Puzzles resueltos (Correcto / Incorrecto)",
+    statsNoHistory: "Aún no hay historial de puzzles registrado.",
+    statusCorrect: "Resuelto Correctamente",
+    statusWrong: "Incorrecto / Intentado",
+    btnClose: "Cerrar"
   },
   ru: {
     tagline: "Шахматная платформа",
@@ -239,7 +272,18 @@ const i18nDict = {
     msgWrongMove: "❌ Неправильный ход! Попробуйте снова.",
     msgCorrectMove: "✅ Верно! Продолжайте...",
     msgSolved: "🎉 Отлично! Задача решена.",
-    msgSolvedDaily: "🎉 Отлично! Ежедневный пазл решен."
+    msgSolvedDaily: "🎉 Отлично! Ежедневный пазл решен.",
+    btnLogout: "Выйти",
+    btnLogin: "Войти",
+    guestUser: "Гость",
+    statsTitle: "Статистика пользователя",
+    statsElo: "Текущий ELO:",
+    statsTotalSolved: "Всего решено задач:",
+    statsHistoryTitle: "Решенные задачи (Верно / Ошибка)",
+    statsNoHistory: "История задач пока не записана.",
+    statusCorrect: "Решено верно",
+    statusWrong: "Неверно / Попытка",
+    btnClose: "Закрыть"
   },
   de: {
     tagline: "Schach-Entwicklungsplattform",
@@ -295,7 +339,18 @@ const i18nDict = {
     msgWrongMove: "❌ Falscher Zug! Noch einmal versuchen.",
     msgCorrectMove: "✅ Richtig! Weiter so...",
     msgSolved: "🎉 Ausgezeichnet! Rätsel gelöst.",
-    msgSolvedDaily: "🎉 Ausgezeichnet! Tägliches Rätsel gelöst."
+    msgSolvedDaily: "🎉 Ausgezeichnet! Tägliches Rätsel gelöst.",
+    btnLogout: "Abmelden",
+    btnLogin: "Anmelden",
+    guestUser: "Gast",
+    statsTitle: "Benutzerstatistik",
+    statsElo: "Aktuelle ELO:",
+    statsTotalSolved: "Gelöste Rätsel gesamt:",
+    statsHistoryTitle: "Gelöste Rätsel (Richtig / Falsch)",
+    statsNoHistory: "Noch kein Rätselverlauf aufgezeichnet.",
+    statusCorrect: "Richtig Gelöst",
+    statusWrong: "Falsch / Versucht",
+    btnClose: "Schließen"
   },
   fr: {
     tagline: "Plateforme de développement d'échecs",
@@ -351,7 +406,18 @@ const i18nDict = {
     msgWrongMove: "❌ Mauvais coup ! Réessayez.",
     msgCorrectMove: "✅ Correct ! Continuez...",
     msgSolved: "🎉 Excellent ! Puzzle résolu.",
-    msgSolvedDaily: "🎉 Excellent ! Puzzle du jour résolu."
+    msgSolvedDaily: "🎉 Excellent ! Puzzle du jour résolu.",
+    btnLogout: "Déconnexion",
+    btnLogin: "Se connecter",
+    guestUser: "Invité",
+    statsTitle: "Statistiques de l'utilisateur",
+    statsElo: "ELO actuel :",
+    statsTotalSolved: "Total des puzzles résolus :",
+    statsHistoryTitle: "Puzzles résolus (Correct / Erreur)",
+    statsNoHistory: "Aucun historique de puzzle enregistré pour l'instant.",
+    statusCorrect: "Résolu Correctement",
+    statusWrong: "Incorrect / Tenté",
+    btnClose: "Fermer"
   },
   'pt-br': {
     tagline: "Plataforma de Desenvolvimento de Xadrez",
@@ -407,7 +473,18 @@ const i18nDict = {
     msgWrongMove: "❌ Movimento incorreto! Tente novamente.",
     msgCorrectMove: "✅ Correto! Continue...",
     msgSolved: "🎉 Excelente! Puzzle resolvido.",
-    msgSolvedDaily: "🎉 Excelente! Puzzle diário resolvido."
+    msgSolvedDaily: "🎉 Excelente! Puzzle diário resolvido.",
+    btnLogout: "Sair",
+    btnLogin: "Entrar",
+    guestUser: "Convidado",
+    statsTitle: "Estatísticas do Usuário",
+    statsElo: "ELO Atual:",
+    statsTotalSolved: "Total de Puzzles Resolvidos:",
+    statsHistoryTitle: "Puzzles Resolvidos (Correto / Errado)",
+    statsNoHistory: "Nenhum histórico de puzzles registrado ainda.",
+    statusCorrect: "Resolvido Corretamente",
+    statusWrong: "Errado / Tentado",
+    btnClose: "Fechar"
   },
   zh: {
     tagline: "国际象棋发展平台",
@@ -463,7 +540,18 @@ const i18nDict = {
     msgWrongMove: "❌ 走法错误！请再试一次。",
     msgCorrectMove: "✅ 正确！请继续...",
     msgSolved: "🎉 太棒了！残局已解开。",
-    msgSolvedDaily: "🎉 太棒了！今日残局已解开."
+    msgSolvedDaily: "🎉 太棒了！今日残局已解开.",
+    btnLogout: "登出",
+    btnLogin: "登录",
+    guestUser: "访客",
+    statsTitle: "用户统计",
+    statsElo: "当前积分：",
+    statsTotalSolved: "总解题数：",
+    statsHistoryTitle: "已解残局（正确 / 错误）",
+    statsNoHistory: "暂无残局历史记录。",
+    statusCorrect: "解答正确",
+    statusWrong: "错误 / 尝试",
+    btnClose: "关闭"
   },
   ja: {
     tagline: "チェス上達プラットフォーム",
@@ -519,7 +607,18 @@ const i18nDict = {
     msgWrongMove: "❌ 不正解です！もう一度お試しください。",
     msgCorrectMove: "✅ 正解！その調子です...",
     msgSolved: "🎉 素晴らしい！パズルクリアです。",
-    msgSolvedDaily: "🎉 素晴らしい！デイリーパズルクリアです。"
+    msgSolvedDaily: "🎉 素晴らしい！デイリーパズルクリアです。",
+    btnLogout: "ログアウト",
+    btnLogin: "ログイン",
+    guestUser: "ゲスト",
+    statsTitle: "ユーザー統計",
+    statsElo: "現在のELO：",
+    statsTotalSolved: "クリアしたパズル総数：",
+    statsHistoryTitle: "クリアしたパズル（正解 / 不正解）",
+    statsNoHistory: "パズルの履歴はまだ記録されていません。",
+    statusCorrect: "正解",
+    statusWrong: "不正解 / 挑戦",
+    btnClose: "閉じる"
   },
   hi: {
     tagline: "शतरंज विकास मंच",
@@ -552,7 +651,7 @@ const i18nDict = {
     btnLoginChoice: "लॉग In",
     btnRegisterChoice: "साइन अप",
     btnGuestChoice: "अतिथि के रूप में जारी रखें",
-    loginSub: "अपने ईमेल और पासवर्ड से लॉग इन करें।",
+    loginSub: "अपने ईमेल और पासवर्ड से लॉग 인 करें।",
     registerSub: "उपयोगकर्ता नाम, ईमेल, पासवर्ड और ELO सेट करें।",
     phUsername: "उपयोगकर्ता नाम",
     phEmail: "ईमेल पता",
@@ -575,7 +674,18 @@ const i18nDict = {
     msgWrongMove: "❌ गलत चाल! पुनः प्रयास करें।",
     msgCorrectMove: "✅ सही! आगे बढ़ते रहें...",
     msgSolved: "🎉 बहुत बढ़िया! पहेली हल हो गई।",
-    msgSolvedDaily: "🎉 बहुत बढ़िया! दैनिक पहेली हल हो गई।"
+    msgSolvedDaily: "🎉 बहुत बढ़िया! दैनिक पहेली हल हो गई।",
+    btnLogout: "लॉग आउट",
+    btnLogin: "लॉग इन",
+    guestUser: "अतिथि",
+    statsTitle: "उपयोगकर्ता आँकड़े",
+    statsElo: "वर्तमान ELO:",
+    statsTotalSolved: "कुल हल की गई पहेलियाँ:",
+    statsHistoryTitle: "हल की गई पहेलियाँ (सही / गलत)",
+    statsNoHistory: "अभी तक कोई पहेली इतिहास दर्ज नहीं किया गया है।",
+    statusCorrect: "सही ढंग से हल किया गया",
+    statusWrong: "गलत / प्रयास किया गया",
+    btnClose: "बंद करें"
   }
 };
 
@@ -610,6 +720,7 @@ function changeLanguage(langCode) {
     }
   });
 
+  updateHeaderUserDisplay();
   updateDynamicBoardTexts();
   renderCategoryCards(LICHESS_44_CATEGORIES);
 }
@@ -618,6 +729,18 @@ $(document).on('change', '#globalLangSelect', function() {
   const selected = $(this).val();
   changeLanguage(selected);
 });
+
+function updateHeaderUserDisplay() {
+  const $authBtn = $('#headerAuthBtn');
+  if (activeUser.username) {
+    $('#headerUsernameBtn').text(activeUser.username);
+    $authBtn.text(t('btnLogout')).attr('data-i18n', 'btnLogout');
+  } else {
+    $('#headerUsernameBtn').text(t('guestUser'));
+    $authBtn.text(t('btnLogin')).attr('data-i18n', 'btnLogin');
+  }
+  $('#headerUserControls').css('display', 'flex');
+}
 
 function updateDynamicBoardTexts() {
   if (currentActiveDailyPuzzle) {
@@ -828,7 +951,12 @@ function createLichessBoard(containerId, handlers) {
     const legal = game.moves({ square: from, verbose: true }).find(m => m.to === to);
 
     if (!legal) {
-      if (viaDrag) SoundManager.play('wrong');
+      if (viaDrag) {
+        SoundManager.play('wrong');
+        if (containerId === 'catBoard' && currentActiveCatPuzzle) {
+          handlePuzzleFailure('cat');
+        }
+      }
       deselect();
       return 'snapback';
     }
@@ -1007,6 +1135,14 @@ function closeEloModal() {
   $('#eloPromptModal').addClass('hidden');
 }
 
+function handleHeaderUsernameClick() {
+  if (!activeUser.username) {
+    promptEloModal();
+  } else {
+    openUserStatsModal();
+  }
+}
+
 function showAuthForm(type) {
   $('#authChoiceView, #authLoginForm, #authRegisterForm, #authGuestForm, #authForgotForm').hide();
   $('#loginErrorMsg, #regErrorMsg, #eloErrorMsg, #forgotMsg').hide();
@@ -1048,6 +1184,7 @@ async function submitLogin() {
   localStorage.setItem('cap_current_username', activeUser.username);
   localStorage.setItem('cap_user_elo', activeUser.elo);
   $('#headerEloValue').text(activeUser.elo);
+  updateHeaderUserDisplay();
   $('#eloPromptModal').addClass('hidden');
 }
 
@@ -1078,6 +1215,7 @@ async function submitRegister() {
   activeUser.username = uname;
   activeUser.elo = eloVal;
   $('#headerEloValue').text(activeUser.elo);
+  updateHeaderUserDisplay();
   $('#eloPromptModal').addClass('hidden');
 }
 
@@ -1108,7 +1246,30 @@ function submitUserElo() {
   localStorage.removeItem('cap_current_username');
   localStorage.setItem('cap_user_elo', val);
   $('#headerEloValue').text(val);
+  updateHeaderUserDisplay();
   $('#eloPromptModal').addClass('hidden');
+}
+
+function handleHeaderAuthAction() {
+  if (activeUser.username) {
+    handleLogout();
+  } else {
+    promptEloModal();
+  }
+}
+
+async function handleLogout() {
+  if (supabaseClient) {
+    await supabaseClient.auth.signOut();
+  }
+  localStorage.removeItem('cap_current_username');
+  localStorage.removeItem('cap_user_elo');
+  activeUser.id = null;
+  activeUser.username = null;
+  activeUser.elo = 1500;
+  
+  updateHeaderUserDisplay();
+  switchPage(2);
 }
 
 /* =========================================================
@@ -1237,6 +1398,8 @@ $(document).ready(async function() {
       let userObj = JSON.parse(savedData);
       activeUser.username = userObj.username;
       activeUser.elo = userObj.elo;
+    } else {
+      activeUser.username = savedUname;
     }
   } else if (savedElo) {
     let parsed = parseInt(savedElo, 10);
@@ -1246,6 +1409,22 @@ $(document).ready(async function() {
   $('#headerEloValue').text(activeUser.elo);
   bootApp();
   renderCategoryCards(LICHESS_44_CATEGORIES);
+
+  $('#loginEmail, #loginPassword').on('keypress', function(e) {
+    if (e.key === 'Enter') submitLogin();
+  });
+
+  $('#regUsername, #regEmail, #regPassword, #regEloInput').on('keypress', function(e) {
+    if (e.key === 'Enter') submitRegister();
+  });
+
+  $('#forgotEmail').on('keypress', function(e) {
+    if (e.key === 'Enter') submitForgotPassword();
+  });
+
+  $('#userEloInput').on('keypress', function(e) {
+    if (e.key === 'Enter') submitUserElo();
+  });
 
   $('#searchInput').on('keyup input', function() {
     let q = $(this).val().toLowerCase();
@@ -1258,12 +1437,16 @@ $(document).ready(async function() {
       if (!$('#eloPromptModal').hasClass('hidden')) {
         closeEloModal();
       }
+      if (!$('#userStatsModal').hasClass('hidden')) {
+        closeUserStatsModal();
+      }
     }
   });
 
-  $('#eloPromptModal').on('click', function(e) {
+  $('#eloPromptModal, #userStatsModal').on('click', function(e) {
     if (e.target === this) {
       closeEloModal();
+      closeUserStatsModal();
     }
   });
 });
@@ -1272,11 +1455,12 @@ function bootApp() {
   $('#mainApp').show();
   changeLanguage('en');
   $('#headerEloBox').hide();
+  updateHeaderUserDisplay();
   initDailyPuzzle();
 }
 
 /* =========================================================
-   7. BULMACA OYNANIŞ MANTIĞI
+   7. BULMACA OYNANIŞ MANTIĞI & GEÇMİŞ KAYITLARI
    ========================================================= */
 let currentDiffOffset = 0;
 let selectedCat = LICHESS_44_CATEGORIES[0];
@@ -1289,6 +1473,7 @@ let catSolved = false;
 let catGen = 0;
 let currentActiveCatPuzzle = null;
 let isCatPuzzleEvaluated = false;
+let isCatPuzzleFailed = false;
 
 let dailyGame = new Chess();
 let dailyCtrl = null;
@@ -1321,22 +1506,48 @@ function puzzleCtx(which) {
   };
 }
 
+async function handlePuzzleFailure(which) {
+  if (which !== 'cat' || !currentActiveCatPuzzle) return;
+  if (currentActiveCatPuzzle.isFromHistory) return;
+
+  if (!isCatPuzzleFailed) {
+    isCatPuzzleFailed = true;
+    isCatPuzzleEvaluated = true;
+
+    let pElo = currentActiveCatPuzzle.rating || 1500;
+    let change = calculateEloChange(activeUser.elo, pElo, false);
+    let res = await applyEloUpdate(change);
+
+    if (currentActiveCatPuzzle.id) {
+      recordPuzzleToSupabase(currentActiveCatPuzzle.id, false);
+    }
+    recordLocalPuzzleHistory(currentActiveCatPuzzle, false);
+  }
+}
+
 async function finishPuzzle(which, isAutoSolution = false) {
   const c = puzzleCtx(which);
   c.setSolved(true);
   if (c.ctrl) c.ctrl.lock();
 
   let text = t(c.solvedKey);
+
   if (which === 'cat' && !isCatPuzzleEvaluated && !isAutoSolution) {
     isCatPuzzleEvaluated = true;
-    let pElo = currentActiveCatPuzzle ? currentActiveCatPuzzle.rating : 1500;
-    let change = calculateEloChange(activeUser.elo, pElo, true);
-    let res = await applyEloUpdate(change);
-    text += ` ${res.changeStr}`;
-    if (currentActiveCatPuzzle && currentActiveCatPuzzle.id) {
-      recordPuzzleToSupabase(currentActiveCatPuzzle.id, true);
+
+    if (currentActiveCatPuzzle && !currentActiveCatPuzzle.isFromHistory && !isCatPuzzleFailed) {
+      let pElo = currentActiveCatPuzzle.rating || 1500;
+      let change = calculateEloChange(activeUser.elo, pElo, true);
+      let res = await applyEloUpdate(change);
+      text += ` ${res.changeStr}`;
+
+      if (currentActiveCatPuzzle.id) {
+        recordPuzzleToSupabase(currentActiveCatPuzzle.id, true);
+      }
+      recordLocalPuzzleHistory(currentActiveCatPuzzle, true);
     }
   }
+
   showBoardFeedback(c.indicator, text, '#2ecc71', 0);
   setTimeout(() => SoundManager.play('success'), 250);
 }
@@ -1349,6 +1560,9 @@ function processPuzzleUserMove(which, src, tgt) {
 
   if (!expected || userMove !== expected.substring(0, 4)) {
     showBoardFeedback(c.indicator, t('msgWrongMove'), '#e74c3c', 1500);
+    if (which === 'cat') {
+      handlePuzzleFailure('cat');
+    }
     return 'wrong';
   }
 
@@ -1382,6 +1596,11 @@ function processPuzzleUserMove(which, src, tgt) {
 function playPuzzleSolution(which) {
   const c = puzzleCtx(which);
   if (!c.ctrl || !c.sol || c.idx >= c.sol.length) return;
+
+  if (which === 'cat') {
+    handlePuzzleFailure('cat');
+  }
+
   isCatPuzzleEvaluated = true;
   const gen = c.gen;
   c.ctrl.setBusy(true);
@@ -1413,6 +1632,7 @@ function setupPuzzleOnBoard(which, puzzle) {
   } else {
     catSolution = puzzle.solution.slice(1); catIndex = 0; catSolved = false; catGen++;
     isCatPuzzleEvaluated = false;
+    isCatPuzzleFailed = false;
   }
 
   const ctrl = puzzleCtx(which).ctrl;
@@ -1445,8 +1665,9 @@ function switchPage(pageNum) {
     $('#categoryBoardSection').hide();
     $('#categoryListSection').show();
 
-    // K ve Y projelerindeki gibi Puzzles sekmesine geçince sorgunun çıkması için:
-    promptEloModal();
+    if (!activeUser.username && !localStorage.getItem('cap_user_elo')) {
+      promptEloModal();
+    }
   }
 }
 
@@ -1473,14 +1694,19 @@ function initDailyPuzzle() {
 }
 
 function showDailySolution() { playPuzzleSolution('daily'); }
+
 function showHint() {
   const c = puzzleCtx('cat');
   if (!c.ctrl || !c.sol || c.idx >= c.sol.length) return;
+
+  handlePuzzleFailure('cat');
+
   let currentUci = c.sol[c.idx];
   let fromSq = currentUci.substring(0, 2);
   $(`#catBoard .square-${fromSq}`).addClass('selected-square');
   setTimeout(() => $(`#catBoard .square-${fromSq}`).removeClass('selected-square'), 1500);
 }
+
 function showSolution() { playPuzzleSolution('cat'); }
 
 function renderCategoryCards(list) {
@@ -1573,4 +1799,89 @@ function backToCategories() {
   $('#categoryBoardSection').hide();
   $('#categoryListSection').show();
   if (catCtrl) catCtrl.resize();
+}
+
+/* =========================================================
+   8. KULLANICI İSTATİSTİKLERİ VE KULLANICIYA ÖZEL GEÇMİŞ YÖNETİMİ
+   ========================================================= */
+
+function getHistoryStorageKey() {
+  if (activeUser && activeUser.username) {
+    return `cap_local_history_${activeUser.username}`;
+  }
+  return 'cap_local_history_guest';
+}
+
+async function openUserStatsModal() {
+  if (!activeUser.username) {
+    promptEloModal();
+    return;
+  }
+
+  $('#modalUserElo').text(activeUser.elo);
+  $('#statsModalUsername').text(activeUser.username);
+  
+  let historyHtml = '';
+  let solvedCount = 0;
+
+  let storageKey = getHistoryStorageKey();
+  let localHistory = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  solvedCount = localHistory.length;
+  $('#modalSolvedCount').text(solvedCount);
+
+  if (localHistory.length > 0) {
+    localHistory.forEach(item => {
+      let badgeColor = item.isSolved ? '#2ecc71' : '#e74c3c';
+      let statusText = item.isSolved ? t('statusCorrect') : t('statusWrong');
+      historyHtml += `
+        <div class="puzzle-history-item" onclick='loadPuzzleObject(${JSON.stringify(item)})'>
+          <span>${t('puzzleEloLabel')}: <b>${item.rating || 1500}</b></span>
+          <span style="color: ${badgeColor};">${statusText} ➔</span>
+        </div>`;
+    });
+  }
+
+  if (!historyHtml) {
+    historyHtml = `<p style="color: #aaa; text-align: center; font-size: 0.85rem;">${t('statsNoHistory')}</p>`;
+  }
+
+  $('#solvedPuzzlesListContainer').html(historyHtml);
+  
+  // Modal içerisindeki statik metinlere i18n etiketleri eklendi ve güncellendi
+  $('#statsModalTitle').text(t('statsTitle'));
+  $('#labelModalUserElo').html(`<b>${t('statsElo')}</b> <span id="modalUserElo">${activeUser.elo}</span>`);
+  $('#labelModalSolvedCount').html(`<b>${t('statsTotalSolved')}</b> <span id="modalSolvedCount">${solvedCount}</span>`);
+  $('#statsHistorySectionTitle').text(t('statsHistoryTitle'));
+  $('#closeStatsBtn').text(t('btnClose'));
+
+  $('#userStatsModal').removeClass('hidden');
+}
+
+function closeUserStatsModal() {
+  $('#userStatsModal').addClass('hidden');
+}
+
+function recordLocalPuzzleHistory(puzzle, isSolved) {
+  if (!puzzle) return;
+  let storageKey = getHistoryStorageKey();
+  let localHistory = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  let existingIndex = localHistory.findIndex(p => p.fen === puzzle.fen);
+  if (existingIndex !== -1) {
+    localHistory[existingIndex].isSolved = isSolved;
+  } else {
+    localHistory.unshift({ ...puzzle, isSolved });
+    if (localHistory.length > 50) localHistory.pop();
+  }
+  localStorage.setItem(storageKey, JSON.stringify(localHistory));
+}
+
+function loadPuzzleObject(puzzle) {
+  closeUserStatsModal();
+  switchPage(3);
+  $('#categoryListSection').hide();
+  $('#categoryBoardSection').css('display', 'flex');
+  $('#selectedCatTitle').text("Geçmiş Bulmaca (Pratik)");
+  
+  currentActiveCatPuzzle = { ...puzzle, isFromHistory: true };
+  startCatPuzzle(currentActiveCatPuzzle);
 }

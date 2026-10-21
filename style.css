@@ -87,6 +87,37 @@ body.light-theme .nav-btn.active {
   font-size: 0.85rem;
 }
 
+/* Sağ Üst Kullanıcı Adı ve Çıkış Butonları Alanı */
+.header-user-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-header-user {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-header-logout {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-header-logout:hover {
+  background-color: #c0392b;
+}
+
 .header-elo-display {
   display: flex;
   align-items: center;
@@ -547,11 +578,10 @@ body > img.piece-417db {
   background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
 }
+
 /* =========================================================
    MODAL FORM GİRDİLERİ VE BUTON DÜZENLEMELERİ
    ========================================================= */
-
-/* Tüm form input ve number alanları */
 .modal-card input[type="text"],
 .modal-card input[type="email"],
 .modal-card input[type="password"],
@@ -572,7 +602,6 @@ body > img.piece-417db {
   border-color: #00ff66;
 }
 
-/* Form içi butonlar ve Back butonu düzeni */
 .modal-card button {
   width: 100%;
   padding: 12px;
@@ -585,7 +614,6 @@ body > img.piece-417db {
   border: none;
 }
 
-/* Geri (Back) Butonu özel stili */
 .modal-card .btn-outline {
   background-color: transparent;
   color: #bdc3c7;
@@ -596,6 +624,37 @@ body > img.piece-417db {
   background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
   border-color: #00ff66 !important;
+}
+
+/* =========================================================
+   8. KULLANICI İSTATİSTİKLERİ VE BULMACA GEÇMİŞİ LİSTESİ
+   ========================================================= */
+#solvedPuzzlesListContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+#solvedPuzzlesListContainer::-webkit-scrollbar-thumb {
+  background: #3d3d3d;
+  border-radius: 3px;
+}
+
+.puzzle-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #1e1e1e;
+  border-radius: 6px;
+  border: 1px solid #2d2d2d;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  font-size: 0.85rem;
+}
+
+.puzzle-history-item:hover {
+  background: #2a2a2a;
+  border-color: #00ff66;
 }
 
 /* =========================================================

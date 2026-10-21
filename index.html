@@ -56,6 +56,13 @@
             <option value="ja">🇯🇵 日本語</option>
             <option value="hi">🇮🇳 हिन्दी</option>
         </select>
+
+        <!-- Kullanıcı Adı ve Dinamik Giriş/Çıkış Butonu -->
+        <div id="headerUserControls" class="header-user-controls" style="display: flex;">
+            <button id="headerUsernameBtn" class="btn-outline" onclick="openUserStatsModal()" style="cursor: pointer; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem;">Guest</button>
+            <button id="headerAuthBtn" class="btn-header-logout" onclick="handleHeaderAuthAction()" data-i18n="btnLogin">Log In</button>
+        </div>
+
         <!-- Sağ üst ELO alanı -->
         <div id="headerEloBox" class="header-elo-display" style="display: none;">
             <span data-i18n="lblYourElo">ELO:</span> <b id="headerEloValue">1500</b>
@@ -254,6 +261,30 @@
       <button class="btn-outline" onclick="showAuthForm('choice')" style="margin-top:15px;" data-i18n="btnBack">⬅️ Back</button>
     </div>
 
+  </div>
+</div>
+
+<!-- =========================================================
+     4. KULLANICI İSTATİSTİKLERİ VE GEÇMİŞİ MODALI
+     ========================================================= -->
+<div id="userStatsModal" class="modal-overlay hidden">
+  <div class="modal-card" style="max-width: 500px; text-align: left;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h2 id="statsModalTitle" style="color: #00ff66; margin: 0;" data-i18n="statsTitle">Kullanıcı İstatistikleri</h2>
+      <button onclick="closeUserStatsModal()" style="background:none; border:none; color:#aaa; font-size:1.2rem; cursor:pointer;">✕</button>
+    </div>
+    
+    <div id="statsContent" style="margin-bottom: 20px; font-size: 0.95rem; line-height: 1.5;">
+      <p id="labelModalUserElo"><b data-i18n="statsElo">Mevcut ELO:</b> <span id="modalUserElo">1500</span></p>
+      <p id="labelModalSolvedCount"><b data-i18n="statsTotalSolved">Çözülen Toplam Bulmaca:</b> <span id="modalSolvedCount">0</span></p>
+    </div>
+
+    <h3 id="statsHistorySectionTitle" style="font-size: 1rem; margin-bottom: 8px; border-bottom: 1px solid #3d3d3d; padding-bottom: 4px;" data-i18n="statsHistoryTitle">Çözülen Bulmacalar (Doğru / Yanlış)</h3>
+    <div id="solvedPuzzlesListContainer" style="max-height: 200px; overflow-y: auto; background: #121212; padding: 8px; border-radius: 6px; border: 1px solid #3d3d3d;">
+      <p style="color: #aaa; text-align: center; font-size: 0.85rem;" data-i18n="statsNoHistory">Henüz kaydedilmiş bulmaca geçmişi yok.</p>
+    </div>
+
+    <button id="closeStatsBtn" class="btn-outline" onclick="closeUserStatsModal()" style="margin-top: 15px;" data-i18n="btnClose">Kapat</button>
   </div>
 </div>
 
