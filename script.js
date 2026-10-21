@@ -1300,16 +1300,27 @@ async function applyEloUpdate(change) {
 }
 
 async function recordPuzzleToSupabase(puzzleId, isSolved) {
-  if (!supabaseClient || !activeUser.id) return;
+  console.log("Supabase'e kayıt deneniyor -> User ID:", activeUser.id, "Puzzle ID:", puzzleId, "Durum:", isSolved);
+  
+  if (!supabaseClient || !activeUser.id) {
+    console.warn("Supabase veya activeUser.id boş olduğu için veri yazılmadı.");
+    return;
+  }
   try {
-    await supabaseClient
+    const { data, error } = await supabaseClient
       .from('user_puzzles')
       .upsert(
-        [{ user_id: activeUser.id, puzzle_id: puzzleId, is_solved: isSolved }],
+        [{ user_id: activeUser.id, puzzle_id: puzzleId || "unknown_puzzle", is_solved: isSolved }],
         { onConflict: 'user_id, puzzle_id' }
       );
+      
+    if (error) {
+      console.error("Supabase Veritabanı Kayıt Hatası:", error.message);
+    } else {
+      console.log("Bulmaca geçmişe başarıyla kaydedildi!", data);
+    }
   } catch (e) {
-    console.error("Bulmaca kaydedilemedi:", e);
+    console.error("Bulmaca kaydedilemedi (Ağ/Bağlantı Hatası):", e);
   }
 }
 
@@ -1396,7 +1407,7 @@ const LICHESS_44_CATEGORIES = [
 ];
 
 $(document).ready(async function() {
-  // Supabase Oturum Kontrolü (Sayfa yenilendiğinde oturumu otomatik yakala)
+  // Supabase Oturum Kontrolü ve activeUser.id ataması
   if (supabaseClient) {
     try {
       const { data: { session } } = await supabaseClient.auth.getSession();
@@ -1411,7 +1422,6 @@ $(document).ready(async function() {
     }
   }
 
-  // Eğer Supabase'den gelmediyse localStorage kontrolü yap
   if (!activeUser.username) {
     let savedUname = localStorage.getItem('cap_current_username');
     let savedElo = localStorage.getItem('cap_user_elo');
@@ -1848,6 +1858,8 @@ async function openUserStatsModal() {
     if (!error && data) {
       remoteHistory = data;
       solvedCount = data.filter(p => p.is_solved).length;
+    } else if (error) {
+      console.error("Geçmiş çekilirken hata:", error.message);
     }
   }
 
