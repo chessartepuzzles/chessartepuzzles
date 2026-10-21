@@ -1303,7 +1303,7 @@ async function recordPuzzleToSupabase(puzzleId, isSolved) {
   console.log("Supabase'e kayıt deneniyor -> User ID:", activeUser.id, "Puzzle ID:", puzzleId, "Durum:", isSolved);
   
   if (!supabaseClient || !activeUser.id) {
-    console.warn("Supabase veya activeUser.id boş olduğu için veri yazılmadı.");
+    console.warn("Supabase veya activeUser.id boş olduğu için veri yazılmadı. (Misafir kullanıcı veya oturum açılmamış).");
     return;
   }
   try {
@@ -1407,7 +1407,6 @@ const LICHESS_44_CATEGORIES = [
 ];
 
 $(document).ready(async function() {
-  // Supabase Oturum Kontrolü ve activeUser.id ataması
   if (supabaseClient) {
     try {
       const { data: { session } } = await supabaseClient.auth.getSession();
@@ -1547,8 +1546,9 @@ async function handlePuzzleFailure(which) {
     let change = calculateEloChange(activeUser.elo, pElo, false);
     let res = await applyEloUpdate(change);
 
-    if (currentActiveCatPuzzle.id) {
-      recordPuzzleToSupabase(currentActiveCatPuzzle.id, false);
+    let pId = currentActiveCatPuzzle.id || currentActiveCatPuzzle.fen;
+    if (pId) {
+      recordPuzzleToSupabase(pId, false);
     }
   }
 }
@@ -1569,8 +1569,9 @@ async function finishPuzzle(which, isAutoSolution = false) {
       let res = await applyEloUpdate(change);
       text += ` ${res.changeStr}`;
 
-      if (currentActiveCatPuzzle.id) {
-        recordPuzzleToSupabase(currentActiveCatPuzzle.id, true);
+      let pId = currentActiveCatPuzzle.id || currentActiveCatPuzzle.fen;
+      if (pId) {
+        recordPuzzleToSupabase(pId, true);
       }
     }
   }
@@ -1870,10 +1871,11 @@ async function openUserStatsModal() {
     remoteHistory.forEach(item => {
       let badgeColor = item.is_solved ? '#2ecc71' : '#e74c3c';
       let statusText = item.is_solved ? t('statusCorrect') : t('statusWrong');
+      let displayId = item.puzzle_id.length > 12 ? item.puzzle_id.substring(0, 12) + '...' : item.puzzle_id;
       
       historyHtml += `
         <div class="puzzle-history-item" style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #222; cursor:pointer;" onclick='loadPuzzleById("${item.puzzle_id}")'>
-          <span>Bulmaca ID: <b>${item.puzzle_id.substring(0, 8)}...</b></span>
+          <span>Bulmaca: <b>${displayId}</b></span>
           <span style="color: ${badgeColor};">${statusText} ➔</span>
         </div>`;
     });
@@ -1909,6 +1911,7 @@ function loadPuzzleById(puzzleId) {
   });
 
   if (foundPuzzle) {
+    foundPuzzle.isFromHistory = true;
     switchPage(3);
     $('#categoryListSection').hide();
     $('#categoryBoardSection').css('display', 'flex');
